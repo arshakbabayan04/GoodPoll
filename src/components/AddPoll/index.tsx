@@ -1,10 +1,10 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { Formik, FieldArray, Form } from "formik";
 import { useAppDispatch } from "../../store/hooks";
 import { addPoll } from "./pollApi";
 import Swal from "sweetalert2";
 
-const AddPoll: FC = () => {
+const AddPoll: FC = React.memo(() => {
     const initialValues = {
         options: [
             {
@@ -120,6 +120,6 @@ const AddPoll: FC = () => {
             </div>
         </>
     );
-};
+});
 
 export default AddPoll;

@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { changePollActive, getPoll } from "../AddPoll/pollApi";
 import { Poll } from "../../types";
 import Swal from "sweetalert2";
 
 const AllPoll = () => {
+    const [btnActive, setBtnActive] = useState<number[]>([]);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -26,7 +27,8 @@ const AllPoll = () => {
                                 <p>{el.question}</p>
                             </div>
                             <button
-                                onClick={() =>
+                                onClick={() => {
+                                    setBtnActive([...btnActive, +el.id]);
                                     dispatch(changePollActive(el.id))
                                         .unwrap()
                                         .then(() =>
@@ -39,10 +41,11 @@ const AllPoll = () => {
                                             })
                                         )
                                 }
+                                }
                                 type="button"
                                 className="h-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
-                                Active
+                                {btnActive.includes(+el.id) ? 'Deactive' : 'Active'}
                             </button>
                         </div>
                     ))}
